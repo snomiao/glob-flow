@@ -24,28 +24,31 @@ await yargs(hideBin(process.argv))
         // .default("md", true)
         .string("message")
         .alias("m", "message")
-        .describe("m", "Suffix message of output md, you can put prompt-message here for LLM"),
+        .describe(
+          "m",
+          "Suffix message of output md, you can put prompt-message here for LLM"
+        ),
     async (argv) => {
       const arg = process.argv.slice(2);
       const globs = [arg[0] ?? "./**/*", ...arg.slice(1)];
       return await globFlow(globs)
         .by((r) =>
-          false
+          argv.md || argv.m
             ? r
-            : r
                 .map(
                   async (f) =>
                     `## ${f}\n\n${"```\n"}${await file(f).text()}${"\n```"}`
                 )
                 .concat(...(!argv.m ? [] : [sf([argv.m])]))
                 .join("\n")
+            : r
         )
         .toLog();
     }
   )
-  .help("help")
+  .help()
   .alias("h", "help")
-  .version("version")
+  .version()
   .alias("v", "version")
   .demandCommand(1)
   .parse();
