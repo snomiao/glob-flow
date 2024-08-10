@@ -9,16 +9,17 @@ import globFlow from ".";
 await yargs(hideBin(process.argv))
   .command(
     // "$0 <...globs>",
-    ["scan [<...globs>]", "$0 <...globs>"],
+    ["scan [globs..]", "$0 [globs..]"],
     "Glob scan current dir",
     (v) =>
       v
-        .string("globs")
         .positional("globs", {
           describe: "globs to scan",
-          default: "./**/*",
+          type: "string",
+          default: ["./**/*"],
+          coerce: (arg: string | string[]) =>
+            Array.isArray(arg) ? arg : [arg],
         })
-        // .default("globs", "./**/*")
         .boolean("md")
         .describe("md", "Read contents and combine into code-prompt style md")
         // .default("md", true)
@@ -29,7 +30,7 @@ await yargs(hideBin(process.argv))
           "Suffix message of output md, you can put prompt-message here for LLM"
         ),
     async (argv) => {
-      const arg = process.argv.slice(2);
+      const arg = argv.globs;
       const globs = [arg[0] ?? "./**/*", ...arg.slice(1)];
       return await globFlow(globs)
         .by((r) =>
