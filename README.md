@@ -27,7 +27,9 @@ npm install globflow
 To scan files using a glob pattern:
 
 ```bash
-npx globflow "./*.json"
+$ npx globflow "./*.json" 
+./tsconfig.json
+./package.json
 ```
 
 ### Using with `bun`
@@ -35,7 +37,9 @@ npx globflow "./*.json"
 You can also use `globflow` directly with `bun`:
 
 ```bash
-bun cli.ts "./*.ts"
+$ bunx globflow "./*.ts"
+./cli.ts
+./index.ts
 ```
 
 ### Additional Options
