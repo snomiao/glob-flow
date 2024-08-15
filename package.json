@@ -1,6 +1,6 @@
 {
   "name": "globflow",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Glob flow",
   "keywords": [],
   "homepage": "https://github.com/snomiao/glob-flow#readme",
@@ -15,7 +15,7 @@
   "author": "snomiao <snomiao@gmail.com>",
   "type": "module",
   "bin": {
-    "globflow": "./bin/cli.js"
+    "globflow": "bin/cli.js"
   },
   "exports": {
     "import": "./dist/index.js",
