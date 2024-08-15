@@ -1,6 +1,6 @@
 {
   "name": "globflow",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Glob flow",
   "keywords": [],
   "homepage": "https://github.com/snomiao/glob-flow#readme",
@@ -14,7 +14,9 @@
   "license": "MIT",
   "author": "snomiao <snomiao@gmail.com>",
   "type": "module",
-  "bin": "./cli.ts",
+  "bin": {
+    "globflow": "./bin/cli.js"
+  },
   "exports": {
     "import": "./dist/index.js",
     "types": "./index.ts"
@@ -27,7 +29,8 @@
     "dist"
   ],
   "scripts": {
-    "build": "bun build:type && bun build:js && bun build:umd",
+    "build": "bun build:type && bun build:cli && bun build:js && bun build:umd",
+    "build:cli": "bun build cli.ts --outdir=bin",
     "build:js": "bun build . --outdir=dist",
     "build:type": "tsc -d --noEmit false --emitDeclarationOnly --outDir dist",
     "build:umd": "bunx rollup dist/index.js --file dist/index.umd.js --format umd --name \"main\"",
